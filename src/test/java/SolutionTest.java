@@ -15,7 +15,7 @@ public class SolutionTest {
     public void minCostTest2() {
         int[] nums = {2, 2, 2, 2, 2};
         int[] cost = {4, 2, 8, 1, 3};
-        long expected = 80;
+        long expected = 0;
         long actual = new Solution().minCost(nums, cost);
         Assert.assertEquals(expected, actual);
     }
