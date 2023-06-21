@@ -37,4 +37,6 @@ public class SolutionTest {
         long actual = new Solution().minCost(nums, cost);
         Assert.assertEquals(expected, actual);
     }
+
+
 }

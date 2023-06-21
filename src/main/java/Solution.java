@@ -1,18 +1,35 @@
-public class Solution {
+class Solution {
     public long minCost(int[] nums, int[] cost) {
-        long minResult = Long.MAX_VALUE;
-        long tempResult = 0;
-        for (int k = 0; k < nums.length; k++) {
-            int i = nums[k];
-            for (int j = 0; j < nums.length; j++) {
-                tempResult += Math.abs(nums[j] - i) * (long) (cost[j]);
-                if (tempResult > minResult) break;
-            }
-            minResult = Math.min(minResult, tempResult);
-            tempResult = 0;
+        int low = Integer.MAX_VALUE;
+        int high = Integer.MIN_VALUE;
+        for (int val : nums) {
+            low = Math.min(low, val);
+            high = Math.max(high, val);
         }
 
-        return minResult;
+        long res = Long.MAX_VALUE;
+        while (low <= high) {
+            int mid = (low + high) >> 1;
+            res = Math.min(res, change(nums, cost, mid));
+            long left = change(nums, cost, mid - 1);
+            long right = change(nums, cost, mid + 1);
+            if (left < right) {
+                high = mid - 1;
+            } else {
+                low = mid + 1;
+            }
+        }
+        return res;
     }
 
+    public long change(int[] nums, int[] costs, int tar) {
+        long ans = 0;
+        for (int i = 0; i < nums.length; i++) {
+            if (nums[i] != tar) {
+                int diff = Math.abs(nums[i] - tar);
+                ans += (long) diff * costs[i];
+            }
+        }
+        return ans;
+    }
 }
